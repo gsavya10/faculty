@@ -1,0 +1,122 @@
+{% load static %}
+{% block content %}
+<head>
+	<meta charset="UTF-8">
+
+	<title>WSDC - Student Portal</title>
+	<meta name="description" content="Main Template">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	
+</head><body>	
+		
+
+		
+				<table id="FacAds" class="ui striped celled compact structured single line unstackable table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Session Name.</th>
+							<th>Departemnt</th>
+							<th>Specialization</th>
+							<th>Semester</th>
+							<th>Faculty Adivsor</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for structure in structures %}
+							<tr>
+								
+								<td>{{ forloop.counter  }}</td>
+								<td>{{ structure.session_name }}</td>
+								<td>{{ structure.department_name }}</td>
+								<td>{{ structure.specialization_name }}</td>
+								<td>{{ structure.semester}}</td>
+								<form method="post" role="form" enctype='multipart/form-data' id="action">
+									{% csrf_token %}						
+									<td>
+										<select name="facultyname" class="form-control input-sm hidden-print">
+											{% if structure.faculty_id == None %}
+												<option value="">-- Select One --</option>
+											{% else %}
+												<option value={{structure.faculty_id}}>
+													{%for faculty in facultys %}
+														{% if faculty.facultyid|add:"0" == structure.faculty_id %}
+															{{ faculty.name }}
+														{% endif %}
+													{% endfor %}
+												</option>			
+											{% endif %}	
+											{%for faculty in facultys %}
+												{% if faculty.department|add:"0" == structure.department_id %}
+													<option value="">{{ faculty.name }}</option>
+												{% endif %}
+											{% endfor %}									
+										</select>									
+									</td>
+									<td> <input type="text" id="structure" name="structure" value={{structure.structure_id}}>
+										<input type="submit" id="update" name="update" value="Update" class="btn btn-small">
+										<input type="submit" id="delete" name="delete" value="Delete" class="btn btn-small">
+							    </form>
+								</td>
+								
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+		
+</body>
+
+<script type="text/javascript">
+	if('{{msg}}')
+		alert('{{msg}}');
+
+	if('{{areAllots}}')
+	{
+		$(document).ready( function () {
+		    $('#allotTable').DataTable({
+    	        "lengthMenu": [[10, 50, 100, -1], [10, 50, 100, "All"]],
+    	        dom: 
+				     "<'row'"+
+				        "<'col-sm-3'l>"+
+				        "<'text-right col-sm-3'B>"+
+				        "<'text-right col-sm-6'f>"+
+				     ">"+
+				     "<'row dt-table'"+
+				        "<'col-sm-12'tr>"+
+				     ">"+
+				     "<'row'"+
+				        "<'col-sm-5'i>"+
+				        "<'text-right col-sm-7'p>"+
+				     ">",
+		        buttons: [
+		            {
+		                extend: 'print'
+		            }
+		        ]
+		    }
+			);
+		});
+	}
+
+	$(document).ready( function () {
+	
+		$(".chosen-select").select2();
+
+	});	
+	
+</script>
+
+
+{% endblock %}

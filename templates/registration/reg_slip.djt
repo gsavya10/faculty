@@ -1,0 +1,73 @@
+
+
+<!doctype HTML>
+
+<html lang="EN">
+<head>
+	<meta charset="UTF-8">
+
+	<title>Registration Slip</title>
+
+	<meta name="description" content="Login Template">
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	</head>
+
+<body>
+	<div id="wrapper" class="ui two column divided stackable grid container">
+		
+		<div class="column">
+				<form method="post" role="form" enctype='multipart/form-data' >
+				{% csrf_token %}
+				<br><br>
+				<center>
+					<div id="reg_num" class="ui center aligned container">
+						<input type="text" placeholder="registration number" name="reg_num"><br>	
+					</div>
+					<div id="roll_num" class="ui center aligned container">
+						<input type="text" placeholder="roll number" name="roll_num"><br>			
+					</div>
+					<input type="radio" id="reg" name="num" value="reg" checked>
+						<label for="reg" >Registration Number</label><br>
+					<input type="radio" id="roll" name="num" value="roll">
+						<label for="roll">Roll Number</label><br>
+					<input type="submit" value="Get Reg Slip">					
+				</center>
+				</form>
+				
+		</div>
+	</div>		
+<script type="text/javascript">
+
+	if(document.getElementById("reg").checked)
+	  	{
+	   		$('#roll_num').hide();
+	   		$(function(){$('#roll_num').val('');});
+	   		$('#reg_num').show();
+
+	   	}	
+	$(document).ready(function(){
+  		$("#reg").click(function(){
+    		
+    		$("#roll_num").hide();
+    		$(function(){$('#roll_num').val('');});
+    		$("#reg_num").show();
+  		});
+  		$("#roll").click(function(){
+    		
+    		$("#reg_num").hide();
+    		$(function(){$('#reg_num').val('');});
+    		$("#roll_num").show();
+  		});
+	});
+
+	if("{{ msg }}")
+	{
+		$('#errMessage').text("{{ msg }}");
+		$('#toggleMod').click();
+	}	 
+</script>
+
+</body>
+</html>

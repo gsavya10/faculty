@@ -1,0 +1,165 @@
+{% load static %}
+{% block content %}
+<head>
+	<meta charset="UTF-8">
+
+	<title>WSDC - Student Portal</title>
+	<meta name="description" content="Main Template">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	
+</head><body>	
+		<div class="column">
+				<form method="post" role="form" enctype='multipart/form-data' id="slip_for">
+				{% csrf_token %}
+				<br><br>
+				<center>
+					<div id="reg_num" class="ui center aligned container">
+						<input type="text" placeholder="Reg/Roll number" id="number" name="number" required autofocus><br>
+					</div>
+					<input type="radio" class="num" name="num" value="reg" checked>
+						<label for="reg" >Registration Number</label><br>
+					<input type="radio" class="num" name="num" value="roll">
+						<label for="roll">Roll Number</label><br>
+					<button type="submit" value="Karma">Kar</button>								
+				</center>
+				</form>
+		</div>
+		<div id="reg_slip" name="reg_slip" class="container">
+			
+			<div  class="visible-print">
+				<h3 style="text-align: center; font-weight: bolder;">National Institute of Technology, Warangal</h3>
+				<h4 style="text-align: center; font-weight: bolder;">(An Institute of National Importance)</h4>
+			</div>
+			<center class="visible-print">
+				<h4 style="font-size: 16pt;font-weight: 300;">
+					Registration Slip 	
+				</h4>
+			</center>
+			<center>   
+				{% for reg in registered reversed %}
+				
+					<table class="{{ reg.semester }} table table-bordered table-condensed hidden" style="overflow: scroll; margin: auto;">
+						<tbody>
+							<tr>
+								<td><strong>Roll &nbsp:&nbsp</strong></td>
+								<td>{{roll_number}}</td>
+								<td><strong>Name &nbsp:&nbsp </strong></td>
+								<td>{{ student_name }}</td>
+							</tr>
+							<tr>
+								<td><strong>Department &nbsp:&nbsp </strong></td>
+								<td>{{reg.dept_id}}</td>
+								<td><strong>Section &nbsp:&nbsp </strong></td>
+								<td>{{reg.section.id}}</td>
+							</tr>
+							<tr>
+								<td><strong>Specialization &nbsp:&nbsp </strong></td>
+								<td>{{reg.spec_id}}</td>
+								<td class="info"><strong>Semester &nbsp:&nbsp </strong></td>
+								<td class="info">
+										<select name="semNum" class="form-control" onchange="changeSem(this);">
+											{% for sem in sems reversed %}
+												<option value="{{ sem }}" {% if sem == reg.semester %} selected {% endif %}>{{ sem }}</option>
+											{% endfor %}
+										</select>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="{{ reg.semester }} ui striped celled compact structured collapsing single line unstackable table hidden" style="overflow: scroll; margin: auto; width: 100%;" ng-show="regularCourses.length">		
+				<thead>
+					<th>Course Id</th>
+					<th>Course Name</th>
+					<th>Credit</th> 
+					<th>Type</th>
+				</thead>
+				{% for courses in reg.courses %}
+				{% for course in courses %}
+
+				<tbody id = "countit">
+					<tr ng-repeat="course in  regularCourses=(slip.lists | filter :{backlog:CONSTANTS.REGULAR})" >
+						<td>{{course.id}}</td>
+						<td>{{course.name}}</td>
+						<td id="san">{{course.credit}}</td>
+						<td>{{course.type}}</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+				{% endfor %}
+
+				<tfoot>
+					<tr>
+						<td><strong>Total Credits [Study]</strong>&nbsp:&nbsp {{reg.study}} </td>
+					</tr>
+					<tr>
+						<td><strong>Total Credits [Study+Exam]</strong>&nbsp:&nbsp {{reg.sum}}</td>
+					</tr>
+				</tfoot>
+			</table>			
+				{% endfor %}				
+			</center>
+		</div>
+
+	</body>
+		
+	<script type="text/javascript">
+
+	$(document).on('submit','slip_for',function(e){
+
+ 	e.preventDefault();
+
+			$.ajax({
+				type:'POST',
+				url:'',
+				datatype:'json',
+				data:{
+					number:$(".number").val(),
+					num_type:$(".num:checked").val(),
+					csrfmiddlewaretoken:'{{csrf_token}}' 
+				},
+				
+				success: function (data) {						
+				document.getElementById('#slip_for').innerHTML=data;					                
+				},
+                error: function() {
+        			console.log("Fail to Send Data");
+       	 			alert("Fail To Data Send");
+
+      			}
+      			//e.preventDefault();
+      			
+				});
+ 	return false;
+
+	});
+		
+	$(".{{ chosen }}").removeClass('hidden');
+	var curr = '{{chosen}}';
+
+	function changeSem(element)
+	{	
+		var sel = $(element).children("option:selected").val();
+
+		$("." + curr).addClass('hidden');
+		$("." + sel).removeClass('hidden');
+		$(element).children("option:contains('" + curr + "')").prop('selected', true);
+
+		curr = sel;	
+	}
+	      
+	</script>     
+      
+	
+</body>
+{% endblock %}

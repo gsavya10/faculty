@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Admin Dashboard</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<limk rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<style type="text/css">
+		hr{
+			border: none;
+    		height: 1px;
+    		background-color: black;
+		}
+		@-webkit-keyframes blinker {
+            from {
+                opacity: 1.0;
+            }
+
+            to {
+                opacity: 0.0;
+            }
+        }
+
+        .blink {
+            text-decoration: blink;
+            -webkit-animation-name: blinker;
+            -webkit-animation-duration: 0.6s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-direction: alternate;
+        }
+	</style>
+
+</head>
+ 
+<body style="overflow-x:hidden"> 
+
+<center><a href="/"> <img  src="{% static 'img/HINDI1.png' %}" align="center" style="background-color:white;" height="110px" width="100%" alt="National Institute of Technology, T.S." title="National Institute of Technology Andhra Pradesh"/></a></center>
+
+<div class="row" style="background-color:#003A6A; color: white;">
+	<center><h2>Admin Dashboard {{ kar}} {{ admin_dept }}</h2></center>	
+	<br>
+</div>
+<div class="row" style="margin-top:2%;">
+	<div class="col-sm-11 col-sm-offset-1">
+		{% if masteruser %}
+				<a target="_self"  href="/examadmin/admin_home" type="button" class="btn btn-success">Home</a>
+				<a target="_self" href="/examadmin/all_exams" type="button" class="btn btn-success">All Exams</a>
+                <a target="_blank"  href="/examadmin/uploadquestion" type="button" class="btn btn-info">Upload Question</a>
+                <a target="_blank"  href="/examadmin/uploadquestionpics" type="button" class="btn btn-info">Upload Question as Image</a>
+                <a target="_blank"  href="/examadmin/questions" type="button" class="btn btn-primary">Questions</a>
+                <a target="_self"  href="/examadmin/generate" type="button" class="btn btn-info">Generate Paper</a>
+                <a target="_self"  href="/examadmin/uploadsubj" type="button" class="btn btn-primary">Add Subject</a>
+                <a target="_self"  href="/examadmin/all_subj" class="btn btn-primary">All Subjects</a>
+                <a target="_self"  href="/examadmin/add_dept" type="button" class="btn btn-primary">Add Department</a>                
+		{% endif %}
+		<a href="/examadmin/send_to_create/" type="button" class="btn btn-success" target="_blank">Create Exam</a>
+		<a target="_self"  href="/examadmin/logout" type="button" class="btn btn-danger">Logout</a>
+
+	</div>
+</div>
+</body>
+</html>
