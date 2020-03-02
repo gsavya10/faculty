@@ -23,7 +23,7 @@ class Cgupdate(models.Model):
 
 
 class Courses(models.Model):
-    uid = models.AutoField(primary_key=True)
+    uid = models.AutoField(primary_key=True,null = False)
     cid = models.CharField(max_length=6)
     department = models.CharField(max_length=16)
     name = models.CharField(max_length=67, blank=True, null=True)
@@ -65,7 +65,7 @@ class ElectiveForm(models.Model):
 
 
 class EligibleStudents(models.Model):
-    roll_number = models.CharField(max_length=10, blank=True, null=True)
+    roll_number = models.CharField(primary_key = True,max_length=10, blank=True, null=False)
     department_id = models.IntegerField(blank=True, null=True)
 
     class Meta:

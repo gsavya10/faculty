@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Students</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<td>S. No</td>
+				<td>Roll Number</td>
+				<td>Name</td>
+				<td>Class</td>
+				<td>Department</td>
+				<td>Cgpa</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for s in data %}
+			<tr>
+				<td>{{s.id}}</td>
+				<td>{{s.roll_no}}</td>
+				<td>{{s.name}}</td>
+				<td>{{s.class}}</td>
+				<td>{{s.department}}</td>
+				<td>{{s.cgpa}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

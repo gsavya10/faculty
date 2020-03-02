@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>couse list</title>
+</head>
+<body>
+	<form method="POST" action="">
+		{% csrf_token %}
+	<table>
+		<thead>
+			<tr>
+				<td>Course ID</td>
+				<td>Course Name</td>
+				<td>Department</td>
+				<td>Credit</td>
+				<td>Alloted</td>
+<!-- 				<td>
+					<input type="hidden" name="course_code" value="{{c.course_code}}">
+				</td> -->
+				<td>Allotted Seats</td>
+				<td>Total Seats</td>
+				<td>Action</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% for c in cources %}
+			<tr>
+				<td>{{c.course_code}}</td>
+				<td>{{c.course_name}}</td>
+				<td>{{c.department_code}}</td>
+				<td>{{c.credit}}</td>
+				<td>
+					<input type="hidden" name="course_code" value="{{c.course_code}}">
+				</td>
+				<td>{{c.allotted_seats}}</td>
+				<td><input type="integer" name="seats"></td>
+				<td><input type="submit" name="" value="update"></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</form>
+</body>
+</html>

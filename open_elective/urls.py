@@ -9,5 +9,9 @@ from . import views
 urlpatterns = [
 
 	# path('start/', views.start, name='start'),
-
+	path('course_list/',views.course_list),
+	path('students/',views.students),
+	path('allotted_elective/',views.allotted_elective),
+	path('put_default/',views.put_default),
+	path('search_page/',views.search)
 ]
