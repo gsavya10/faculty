@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>couse list</title>
+	<title>Course List</title>
 </head>
 <body>
+    <button type="button" onclick="window.print()" class="btn btn-sm btn-primary hidden-print"><span class="glyphicon glyphicon-print"></span> Print</button>
 	<form method="POST" action="">
 		{% csrf_token %}
-	<table>
+	<table class="table table-hover table-condensed">
 		<thead>
 			<tr>
 				<td>Course ID</td>
 				<td>Course Name</td>
 				<td>Department</td>
 				<td>Credit</td>
-				<td>Alloted</td>
-<!-- 				<td>
-					<input type="hidden" name="course_code" value="{{c.course_code}}">
-				</td> -->
 				<td>Allotted Seats</td>
 				<td>Total Seats</td>
 				<td>Action</td>
+                <td><input type="hidden" name="course_code" value="course_code"></td>
+                <td><input type="hidden" name="dep_code" value="department_code"></td>
 			</tr>
 		</thead>
 		<tbody>
-			{% for c in cources %}
+			{% for c in courses %}
 			<tr>
 				<td>{{c.course_code}}</td>
 				<td>{{c.course_name}}</td>
-				<td>{{c.department_code}}</td>
+                {% for d in department %}
+                    {% if d.code == c.department_code %}
+				<td>{{d.department_name}}</td>
+                    {% endif %}
+                {% endfor %}
 				<td>{{c.credit}}</td>
-				<td>
-					<input type="hidden" name="course_code" value="{{c.course_code}}">
-				</td>
 				<td>{{c.allotted_seats}}</td>
-				<td><input type="integer" name="seats"></td>
-				<td><input type="submit" name="" value="update"></td>
+				<td><input type="number" min="1" step="1" size=7 name="seats" value="{{ c.no_of_seats }}"></td>
+				<td><input type="submit" name="{{ c.department_code }}" value="update"></td>
+                <td><input type="hidden" name="course_code" value="{{c.course_code}}"></td>
+                <td><input type="hidden" name="dep_code" value="{{ c.department_code }}"></td>
 			</tr>
 			{% endfor %}
 		</tbody>

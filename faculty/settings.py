@@ -81,60 +81,44 @@ WSGI_APPLICATION = 'faculty.wsgi.application'
 
 DATABASES = {
     'default': {
+        'NAME': 'faculty_profile',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'django',
+        'PASSWORD': 'django-user-password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'wsdc_student': {
+        'NAME': 'wsdc_student',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'django',
+        'PASSWORD': 'django-user-password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'registration': {
+        'NAME': 'registration',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'django',
+        'PASSWORD': 'django-user-password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'results': {
+        'NAME': 'wsdc_results',
+        'ENGINE': 'django.db.backends.mysql',
+        'USER': 'django',
+        'PASSWORD': 'django-user-password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    },
+    'wsdc_electives': {
         'NAME': 'wsdc_electives',
         'HOST': '127.0.0.1',
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'django',
+        'PASSWORD': 'django-user-password',
     },
-
-    'wsdc_student': {
-        'NAME': 'wsdc_student',
-        'HOST': '127.0.0.1',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': '',
-    },
-
- #    'feedback_db': {
-	# 	'NAME': 'feedback',
-	# 	'HOST': '127.0.0.1',
-	# 	'ENGINE': 'django.db.backends.mysql',
-	# 	'USER': 'django',
-	# 	'PASSWORD': 'django-user-password',
-	# },
-
-	# 'faculty_profile': {
-	# 	'NAME': 'faculty_profile',
-	# 	'HOST': '127.0.0.1',
-	# 	'ENGINE': 'django.db.backends.mysql',
-	# 	'USER': 'django',
-	# 	'PASSWORD': 'django-user-password',
-	# },
-
-	# 'wsdc_results': {
-	# 	'NAME': 'wsdc_results',
-	# 	'HOST': '127.0.0.1',
-	# 	'ENGINE': 'django.db.backends.mysql',
-	# 	'USER': 'django',
-	# 	'PASSWORD': 'django-user-password',
-	# },
-
-	# 'wsdc_electives': {
-	# 	'NAME': 'wsdc_electives',
-	# 	'HOST': '127.0.0.1',
-	# 	'ENGINE': 'django.db.backends.mysql',
-	# 	'USER': 'root',
-	# 	'PASSWORD': '',
-	# },
-
-	'registration': {
-		'NAME': 'registration',
-		'HOST': '127.0.0.1',
-		'ENGINE': 'django.db.backends.mysql',
-		'USER': 'root',
-		'PASSWORD': '',
-	},
 }
 
 

@@ -7,11 +7,11 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-class OEDbManager(models.Manager):
+class ElectivesManager(models.Manager):
     using = 'wsdc_electives'
 
     def get_queryset(self):
-        return super(OEDbManager, self).get_queryset().using(self.using)
+        return super(ElectivesManager, self).get_queryset().using(self.using)
 
 class Cgupdate(models.Model):
     rollno = models.IntegerField(unique=True, blank=True, null=True)
@@ -20,6 +20,9 @@ class Cgupdate(models.Model):
     class Meta:
         managed = False
         db_table = 'cgupdate'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class Courses(models.Model):
@@ -35,6 +38,9 @@ class Courses(models.Model):
     class Meta:
         managed = False
         db_table = 'courses'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class Departments(models.Model):
@@ -44,6 +50,9 @@ class Departments(models.Model):
     class Meta:
         managed = False
         db_table = 'departments'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class ElectiveForm(models.Model):
@@ -62,6 +71,9 @@ class ElectiveForm(models.Model):
         managed = False
         db_table = 'elective_form'
         unique_together = (('session_code', 'class_code', 'department_code', 'course_code'),)
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class EligibleStudents(models.Model):
@@ -71,6 +83,9 @@ class EligibleStudents(models.Model):
     class Meta:
         managed = False  # Created from a view. Don't remove.
         db_table = 'eligible_students'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class Sessions(models.Model):
@@ -80,6 +95,9 @@ class Sessions(models.Model):
     class Meta:
         managed = False
         db_table = 'sessions'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class StudentElectiveChoices(models.Model):
@@ -91,6 +109,9 @@ class StudentElectiveChoices(models.Model):
         managed = False
         db_table = 'student_elective_choices'
         unique_together = (('student_id', 'course_id'),)
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
 
 
 class StudentElectives(models.Model):
@@ -105,3 +126,7 @@ class StudentElectives(models.Model):
     class Meta:
         managed = False
         db_table = 'student_electives'
+        app_label = 'open_elective'
+
+    objects = ElectivesManager()
+
