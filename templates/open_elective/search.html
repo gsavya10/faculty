@@ -3,19 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search</title>
+    <title>Search Student</title>
+    <style>
+        .auto-index td:first-child:before {
+            counter-increment: Serial;
+            content: counter(Serial);
+        }
+        body {
+            counter-reset: Serial;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter the Roll Number</h1>
+    <!--<h1>Enter the Roll Number</h1>-->
     <div class ="container">
         
     <form method = POST>
-        {{form.as_p}}
         {% csrf_token %}
-        <label form="roll">Enter Roll Number</label><br>
-        <input type="text" id ="roll" name ="roll"><br>
+        <!--<label form="roll">Enter Roll Number</label><br>-->
+        <input type="text" id ="roll" name ="roll" placeholder="Enter roll number of the student" required><br>
         <input type ="submit">
+        <p class="hidden-print help-block">NOTE: Enter the roll number of the student (not registration number) to check his/her preference list.</p>
     </form>
     </div>
+
+    {% if skey %}
+        <button type="button" onclick="window.print()" class="btn btn-sm btn-primary hidden-print"><span class="glyphicon glyphicon-print"></span> Print</button>
+        <div class ="container">
+            <table>
+                <caption>Student Details</caption>
+                <tr>
+                    <td>Roll Number&#9;: </td>
+                    <td>{{skey.roll}}</td>
+                </tr>
+                <tr>
+                    <td>Branch&#9;&#9;: </td>
+                    <td>{{skey3.branch}}</td>
+                </tr>
+                <tr>
+                    <td>Allotted Elective&#9;: </td>
+                    <td>{{skey.allotted_elective}}</td>
+                </tr>
+                <tr>
+                    <td>Student Name&#9;: </td>
+                    <td>{{skey3.name}}</td>
+                </tr>
+                <tr>
+                    <td>CGPA&#9;&#9;: </td>
+                    <td>{{skey.cgpa}}</td>
+                </tr>
+                <tr>
+                    <td>Preference Number&#9;: </td>
+                    <td>{{skey.priority}}</td>
+                </tr>
+
+            </table>
+            <br><br>
+            <table class="auto-index">
+                <caption>Elective Preferences</caption>
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                        <th>Preference Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in skey2 %}
+                    <tr>
+                        <td></td>
+                        <td>{{s.course_id}}</td>
+                        {% for c in skey4 %}
+                            {% if c.cid == s.course_id %}
+                                <td>{{c.name}}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{s.priority}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <!--<li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>-->
+            <script>
+                alert('{{ message }}');
+            </script>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

@@ -26,7 +26,7 @@ class Cgupdate(models.Model):
 
 
 class Courses(models.Model):
-    uid = models.AutoField(primary_key=True,null = False)
+    uid = models.AutoField(primary_key=True)
     cid = models.CharField(max_length=6)
     department = models.CharField(max_length=16)
     name = models.CharField(max_length=67, blank=True, null=True)

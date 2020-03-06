@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.http import HttpResponse
-from .models import *
 from registration.models import *
 from student.models import *
+from .models import *
 from . import forms
 import json
 
@@ -67,7 +68,7 @@ def students(request):
 def allotted_elective(request):
     data = []
     student_details = StudentElectives.objects.filter(allotted = 1)
-    c = 0
+    #c = 0
     for stu in student_details:
         d = {}
         d['id'] = stu.id
@@ -116,17 +117,23 @@ def put_default(request):
 def search(request):
     if request.method == 'POST':
         formobj = forms.RollForm(request.POST)
-
         if formobj.is_valid():
             reqroll = formobj.cleaned_data['roll']
-            print(reqroll)
-            studentobj = get_object_or_404(StudentElectives, roll =reqroll)
+            try:
+                studentobj = StudentElectives.objects.get(roll=reqroll)
+            except:
+                messages.warning(request, 'We have no record of this student (Roll number: %s), either this student has not submitted the elective application form or there was a problem uploading it.' % reqroll)
+                return render(request, 'open_elective/search.html')
             schoices = StudentElectiveChoices.objects.filter(student_id=reqroll)
-            search_dict = {'skey': studentobj,
-                           'skey2': schoices}
-
-            return render(request, 'open_elective/searchResult.html', search_dict)
-           
+            info = StudentData.objects.using('wsdc_student').get(roll_number=int(reqroll))
+            courselist = Courses.objects.filter()
+            search_dict = {
+                'skey': studentobj,
+                'skey2': schoices,
+                'skey3': info,
+                'skey4': courselist,
+            }
+            return render(request, 'open_elective/search.html', search_dict)
     else:
         return render(request, 'open_elective/search.html')
 
