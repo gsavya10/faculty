@@ -2,27 +2,40 @@
 <html>
 <head>
 	<title>Allotted Elective</title>
+    <style>
+        .auto-index td:first-child:before {
+            counter-increment: Serial;
+            content: counter(Serial);
+        }
+        body {
+            counter-reset: Serial;
+        }
+    </style>
 </head>
 <body>
+    <form method = POST>
+    {% csrf_token %}
+        <span class="glyphicon glyphicon-refresh"></span><input id="submit" type="submit" class="btn btn-sm btn-primary hidden-print" value="Re-allot electives"/>
+    </form>
     <button type="button" onclick="window.print()" class="btn btn-sm btn-primary hidden-print"><span class="glyphicon glyphicon-print"></span> Print</button>
 	<div>
-		<table>
+		<table class="auto-index">
 			<thead>
 				<tr>
-					<td>S. No</td>
-					<td>Roll Number</td>
-					<td>Name</td>
-					<td>Class</td>
-					<td>Department</td>
-					<td>Cgpa</td>
-					<td>Alloted Elective</td>
-					<td>Preference Number</td>
+					<th>S. No</th>
+					<th>Roll Number</th>
+					<th>Name</th>
+					<th>Class</th>
+					<th>Department</th>
+					<th>CGPA</th>
+					<th>Alloted Elective</th>
+					<th>Preference Number</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for s in data %}
 				<tr>
-					<td>{{s.id}}</td>
+					<td></td>
 					<td>{{s.roll_no}}</td>
 					<td>{{s.name}}</td>
 					<td>{{s.class}}</td>

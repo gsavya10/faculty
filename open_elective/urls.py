@@ -12,5 +12,6 @@ urlpatterns = [
     path('students/',views.students),
     path('allotted_elective/',views.allotted_elective),
     path('put_default/',views.put_default),
-    path('search_page/',views.search)
+    path('search_page/',views.search),
+    path('admin_allot_view/', views.admin_allot_view)
 ]

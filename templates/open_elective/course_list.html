@@ -2,28 +2,39 @@
 <html>
 <head>
 	<title>Course List</title>
+    <style>
+        .auto-index td:first-child:before {
+            counter-increment: Serial;
+            content: counter(Serial);
+        }
+        body {
+            counter-reset: Serial;
+        }
+    </style>
 </head>
 <body>
     <button type="button" onclick="window.print()" class="btn btn-sm btn-primary hidden-print"><span class="glyphicon glyphicon-print"></span> Print</button>
 	<form method="POST" action="">
 		{% csrf_token %}
-	<table class="table table-hover table-condensed">
+	<table class="table table-hover table-condensed auto-index">
 		<thead>
 			<tr>
-				<td>Course ID</td>
-				<td>Course Name</td>
-				<td>Department</td>
-				<td>Credit</td>
-				<td>Allotted Seats</td>
-				<td>Total Seats</td>
-				<td>Action</td>
-                <td><input type="hidden" name="course_code" value="course_code"></td>
-                <td><input type="hidden" name="dep_code" value="department_code"></td>
+                <th>S. No</th>
+				<th>Course ID</th>
+				<th>Course Name</th>
+				<th>Department</th>
+				<th>Credit</th>
+				<th>Allotted Seats</th>
+				<th>Total Seats</th>
+				<th>Action</th>
+                <th><input type="hidden" name="course_code" value="course_code"></th>
+                <th><input type="hidden" name="dep_code" value="department_code"></th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for c in courses %}
 			<tr>
+                <td></td>
 				<td>{{c.course_code}}</td>
 				<td>{{c.course_name}}</td>
                 {% for d in department %}

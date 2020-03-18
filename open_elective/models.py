@@ -13,9 +13,10 @@ class ElectivesManager(models.Manager):
     def get_queryset(self):
         return super(ElectivesManager, self).get_queryset().using(self.using)
 
+
 class Cgupdate(models.Model):
-    rollno = models.IntegerField(unique=True, blank=True, null=True)
-    cgpa = models.DecimalField(db_column='Cgpa', max_digits=3, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    rollno = models.IntegerField(primary_key=True)
+    cgpa = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

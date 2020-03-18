@@ -1,4 +1,12 @@
 from django.db import models
+from registration.models import RegistrationDbManager
+
+
+class ResultsManager(models.Manager):
+    using = 'results'
+
+    def get_queryset(self):
+        return super(ResultsManager, self).get_queryset().using(self.using)
 
 
 class AuthGroup(models.Model):
@@ -7,6 +15,8 @@ class AuthGroup(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_group'
+
+    objects = ResultsManager()
 
 
 class AuthGroupPermissions(models.Model):
@@ -18,6 +28,8 @@ class AuthGroupPermissions(models.Model):
         db_table = 'auth_group_permissions'
         unique_together = (('group_id', 'permission_id'),)
 
+    objects = ResultsManager()
+
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
@@ -28,6 +40,8 @@ class AuthPermission(models.Model):
         managed = False
         db_table = 'auth_permission'
         unique_together = (('content_type_id', 'codename'),)
+
+    objects = ResultsManager()
 
 
 class AuthUser(models.Model):
@@ -46,6 +60,8 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
+    objects = ResultsManager()
+
 
 class AuthUserGroups(models.Model):
     user_id = models.IntegerField()
@@ -55,6 +71,8 @@ class AuthUserGroups(models.Model):
         managed = False
         db_table = 'auth_user_groups'
         unique_together = (('user_id', 'group_id'),)
+
+    objects = ResultsManager()
 
 
 class AuthUserUserPermissions(models.Model):
@@ -66,6 +84,8 @@ class AuthUserUserPermissions(models.Model):
         db_table = 'auth_user_user_permissions'
         unique_together = (('user_id', 'permission_id'),)
 
+    objects = ResultsManager()
+
 
 class BlockedResults(models.Model):
     roll = models.CharField(primary_key=True, max_length=10)
@@ -73,6 +93,8 @@ class BlockedResults(models.Model):
     class Meta:
         managed = False
         db_table = 'blocked_results'
+
+    objects = ResultsManager()
 
 
 class DjangoAdminLog(models.Model):
@@ -88,6 +110,8 @@ class DjangoAdminLog(models.Model):
         managed = False
         db_table = 'django_admin_log'
 
+    objects = ResultsManager()
+
 
 class DjangoContentType(models.Model):
     app_label = models.CharField(max_length=100)
@@ -97,6 +121,8 @@ class DjangoContentType(models.Model):
         managed = False
         db_table = 'django_content_type'
         unique_together = (('app_label', 'model'),)
+
+    objects = ResultsManager()
 
 
 class DjangoMigrations(models.Model):
@@ -108,6 +134,8 @@ class DjangoMigrations(models.Model):
         managed = False
         db_table = 'django_migrations'
 
+    objects = ResultsManager()
+
 
 class DjangoSession(models.Model):
     session_key = models.CharField(primary_key=True, max_length=40)
@@ -117,6 +145,8 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+    objects = ResultsManager()
 
 
 class Info(models.Model):
@@ -133,16 +163,18 @@ class Info(models.Model):
         managed = False
         db_table = 'info'
 
+    objects = ResultsManager()
+
 
 class Results(models.Model):
-    reference_id = models.IntegerField()
+    reference_id = models.AutoField(primary_key=True)
     msno = models.IntegerField(db_column='Msno', blank=True, null=True)  # Field name made lowercase.
     batchcode = models.IntegerField(db_column='BatchCode', blank=True, null=True)  # Field name made lowercase.
     secname = models.CharField(db_column='SecName', max_length=1, blank=True, null=True)  # Field name made lowercase.
     degcode = models.IntegerField(db_column='DegCode', blank=True, null=True)  # Field name made lowercase.
     yrsemcode = models.IntegerField(db_column='YrSemCode', blank=True, null=True)  # Field name made lowercase.
     slno = models.IntegerField(db_column='SlNo', blank=True, null=True)  # Field name made lowercase.
-    regno = models.IntegerField(db_column='RegNo', blank=True, null=True)  # Field name made lowercase.
+    regno = models.CharField(max_length=20, db_column='RegNo', blank=True, null=True)  # Field name made lowercase.
     name = models.CharField(db_column='Name', max_length=33, blank=True, null=True)  # Field name made lowercase.
     grade1 = models.CharField(db_column='Grade1', max_length=2, blank=True, null=True)  # Field name made lowercase.
     grade2 = models.CharField(db_column='Grade2', max_length=2, blank=True, null=True)  # Field name made lowercase.
@@ -168,6 +200,9 @@ class Results(models.Model):
     class Meta:
         managed = False
         db_table = 'results'
+        app_label = 'results'
+
+    objects = ResultsManager()
 
 
 class Subjects(models.Model):
@@ -237,3 +272,17 @@ class Subjects(models.Model):
     class Meta:
         managed = False
         db_table = 'subjects'
+
+    objects = ResultsManager()
+
+
+class Session(models.Model):
+    name = models.CharField(max_length=128)
+    last_modified_on = models.DateTimeField()
+    results_publish = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'session'
+
+    objects = RegistrationDbManager()

@@ -13,6 +13,7 @@ class AllowedstudentsregDayscholars(models.Model):
         managed = False
         db_table = 'allowedstudentsreg_dayscholars'
 
+    objects = RegistrationDbManager()
 
 class AttendanceDates(models.Model):
     structure_id = models.IntegerField()
@@ -28,6 +29,7 @@ class AttendanceDates(models.Model):
         managed = False
         db_table = 'attendance_dates'
 
+    objects = RegistrationDbManager()
 
 class AttendanceRecord(models.Model):
     count = models.AutoField(primary_key=True)
@@ -38,6 +40,7 @@ class AttendanceRecord(models.Model):
         managed = False
         db_table = 'attendance_record'
 
+    objects = RegistrationDbManager()
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -46,6 +49,7 @@ class AuthGroup(models.Model):
         managed = False
         db_table = 'auth_group'
 
+    objects = RegistrationDbManager()
 
 class AuthGroupPermissions(models.Model):
     group_id = models.IntegerField()
@@ -56,6 +60,7 @@ class AuthGroupPermissions(models.Model):
         db_table = 'auth_group_permissions'
         unique_together = (('group_id', 'permission_id'),)
 
+    objects = RegistrationDbManager()
 
 class AuthPermission(models.Model):
     name = models.CharField(max_length=255)
@@ -67,6 +72,7 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
         unique_together = (('content_type_id', 'codename'),)
 
+    objects = RegistrationDbManager()
 
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
@@ -84,6 +90,7 @@ class AuthUser(models.Model):
         managed = False
         db_table = 'auth_user'
 
+    objects = RegistrationDbManager()
 
 class AuthUserGroups(models.Model):
     user_id = models.IntegerField()
@@ -94,6 +101,7 @@ class AuthUserGroups(models.Model):
         db_table = 'auth_user_groups'
         unique_together = (('user_id', 'group_id'),)
 
+    objects = RegistrationDbManager()
 
 class AuthUserUserPermissions(models.Model):
     user_id = models.IntegerField()
@@ -104,6 +112,7 @@ class AuthUserUserPermissions(models.Model):
         db_table = 'auth_user_user_permissions'
         unique_together = (('user_id', 'permission_id'),)
 
+    objects = RegistrationDbManager()
 
 class AutoReg(models.Model):
     regno = models.CharField(primary_key=True, max_length=16)
@@ -114,6 +123,7 @@ class AutoReg(models.Model):
         managed = False
         db_table = 'auto_reg'
 
+    objects = RegistrationDbManager()
 
 class BlockStudent(models.Model):
     reg_no = models.CharField(max_length=25)
@@ -123,6 +133,7 @@ class BlockStudent(models.Model):
         managed = False
         db_table = 'block_student'
 
+    objects = RegistrationDbManager()
 
 class CompData(models.Model):
     registered_id = models.IntegerField(blank=True, null=True)
@@ -159,6 +170,7 @@ class CompData(models.Model):
         managed = False
         db_table = 'comp_data'
 
+    objects = RegistrationDbManager()
 
 class CourseAllottedMode(models.Model):
     name = models.CharField(max_length=50)
@@ -167,6 +179,7 @@ class CourseAllottedMode(models.Model):
         managed = False
         db_table = 'course_allotted_mode'
 
+    objects = RegistrationDbManager()
 
 class CourseFacultyAllotted(models.Model):
     regular_course_id = models.IntegerField()
@@ -180,6 +193,7 @@ class CourseFacultyAllotted(models.Model):
         db_table = 'course_faculty_allotted'
         unique_together = (('regular_course_id', 'section', 'batch_index'),)
 
+    objects = RegistrationDbManager()
 
 class Courses(models.Model):
     id = models.CharField(primary_key=True, max_length=9)
@@ -192,6 +206,7 @@ class Courses(models.Model):
         managed = False
         db_table = 'courses'
 
+    objects = RegistrationDbManager()
 
 class CoursesType(models.Model):
     name = models.CharField(max_length=100)
@@ -201,6 +216,7 @@ class CoursesType(models.Model):
         managed = False
         db_table = 'courses_type'
 
+    objects = RegistrationDbManager()
 
 class Department(models.Model):
     name = models.CharField(max_length=100)
@@ -210,6 +226,7 @@ class Department(models.Model):
         managed = False
         db_table = 'department'
 
+    objects = RegistrationDbManager()
 
 class DepartmentSpecialization(models.Model):
     department_id = models.IntegerField()
@@ -220,6 +237,7 @@ class DepartmentSpecialization(models.Model):
         db_table = 'department_specialization'
         unique_together = (('department_id', 'specialization_id'),)
 
+    objects = RegistrationDbManager()
 
 class DetailedDepartmentSpecialization(models.Model):
     department_id = models.IntegerField()
@@ -231,6 +249,7 @@ class DetailedDepartmentSpecialization(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'detailed_department_specialization'
 
+    objects = RegistrationDbManager()
 
 class DetailedDumRegistration(models.Model):
     registered_id = models.IntegerField(blank=True, null=True)
@@ -298,6 +317,7 @@ class DetailedRegistration(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'detailed_registration'
 
+    objects = RegistrationDbManager()
 
 class DetailedStructure(models.Model):
     structure_id = models.IntegerField(primary_key=True)
@@ -314,6 +334,7 @@ class DetailedStructure(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'detailed_structure'
 
+    objects = RegistrationDbManager()
 
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
@@ -328,6 +349,7 @@ class DjangoAdminLog(models.Model):
         managed = False
         db_table = 'django_admin_log'
 
+    objects = RegistrationDbManager()
 
 class DjangoContentType(models.Model):
     app_label = models.CharField(max_length=100)
@@ -338,6 +360,7 @@ class DjangoContentType(models.Model):
         db_table = 'django_content_type'
         unique_together = (('app_label', 'model'),)
 
+    objects = RegistrationDbManager()
 
 class DjangoMigrations(models.Model):
     app = models.CharField(max_length=255)
@@ -348,6 +371,7 @@ class DjangoMigrations(models.Model):
         managed = False
         db_table = 'django_migrations'
 
+    objects = RegistrationDbManager()
 
 class DjangoSession(models.Model):
     session_key = models.CharField(primary_key=True, max_length=40)
@@ -358,6 +382,7 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
+    objects = RegistrationDbManager()
 
 class ExamOnly(models.Model):
     sno = models.AutoField(primary_key=True)
@@ -367,6 +392,7 @@ class ExamOnly(models.Model):
         managed = False
         db_table = 'exam_only'
 
+    objects = RegistrationDbManager()
 
 class FeesPayment(models.Model):
     reg_no = models.CharField(unique=True, max_length=100)
@@ -379,6 +405,7 @@ class FeesPayment(models.Model):
         managed = False
         db_table = 'fees_payment'
 
+    objects = RegistrationDbManager()
 
 class NewRollList(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -391,6 +418,7 @@ class NewRollList(models.Model):
         managed = False
         db_table = 'new_roll_list'
 
+    objects = RegistrationDbManager()
 
 class Registered(models.Model):
     registration_number = models.CharField(max_length=10)
@@ -406,6 +434,7 @@ class Registered(models.Model):
         db_table = 'registered'
         unique_together = (('registration_number', 'reg_structure'),)
 
+    objects = RegistrationDbManager()
 
 class RegisteredCourses(models.Model):
     registered = models.ForeignKey(Registered, models.DO_NOTHING)
@@ -423,6 +452,7 @@ class RegisteredCourses(models.Model):
         db_table = 'registered_courses'
         unique_together = (('registered', 'structure', 'course', 'backlog'),)
 
+    objects = RegistrationDbManager()
 
 class RegisteredCoursesOld(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -440,6 +470,7 @@ class RegisteredCoursesOld(models.Model):
         managed = False
         db_table = 'registered_courses_old'
 
+    objects = RegistrationDbManager()
 
 class RegisteredCoursesOops(models.Model):
     registered_id = models.IntegerField()
@@ -457,6 +488,7 @@ class RegisteredCoursesOops(models.Model):
         db_table = 'registered_courses_oops'
         unique_together = (('registered_id', 'structure_id', 'course_id', 'backlog'),)
 
+    objects = RegistrationDbManager()
 
 class RegisteredMode(models.Model):
     name = models.CharField(max_length=20)
@@ -466,6 +498,7 @@ class RegisteredMode(models.Model):
         managed = False
         db_table = 'registered_mode'
 
+    objects = RegistrationDbManager()
 
 class RegisteredOld(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -481,6 +514,7 @@ class RegisteredOld(models.Model):
         managed = False
         db_table = 'registered_old'
 
+    objects = RegistrationDbManager()
 
 class RegistrationAllottedCourses(models.Model):
     regular_course_id = models.IntegerField()
@@ -501,6 +535,7 @@ class RegistrationAllottedCourses(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'registration_allotted_courses'
 
+    objects = RegistrationDbManager()
 
 class RegularCourses(models.Model):
     structure_id = models.IntegerField()
@@ -513,6 +548,7 @@ class RegularCourses(models.Model):
         db_table = 'regular_courses'
         unique_together = (('structure_id', 'course_id'),)
 
+    objects = RegistrationDbManager()
 
 class Requested(models.Model):
     registration_number = models.CharField(max_length=10)
@@ -525,6 +561,7 @@ class Requested(models.Model):
         db_table = 'requested'
         unique_together = (('registration_number', 'reg_structure_id'),)
 
+    objects = RegistrationDbManager()
 
 class RequestedCourses(models.Model):
     registered_id = models.IntegerField()
@@ -544,6 +581,7 @@ class RequestedCourses(models.Model):
         db_table = 'requested_courses'
         unique_together = (('registered_id', 'structure_id', 'course_id', 'backlog'),)
 
+    objects = RegistrationDbManager()
 
 class Section(models.Model):
     id = models.CharField(primary_key=True, max_length=2)
@@ -552,6 +590,7 @@ class Section(models.Model):
         managed = False
         db_table = 'section'
 
+    objects = RegistrationDbManager()
 
 class Session(models.Model):
     name = models.CharField(max_length=128)
@@ -562,6 +601,7 @@ class Session(models.Model):
         managed = False
         db_table = 'session'
 
+    objects = RegistrationDbManager()
 
 class Specialization(models.Model):
     abbr = models.CharField(max_length=16)
@@ -572,6 +612,7 @@ class Specialization(models.Model):
         managed = False
         db_table = 'specialization'
 
+    objects = RegistrationDbManager()
 
 class Structure(models.Model):
     faculty_id = models.IntegerField(blank=True, null=True)
@@ -586,6 +627,7 @@ class Structure(models.Model):
         db_table = 'structure'
         unique_together = (('session_id', 'department_id', 'specialization_id', 'semester'),)
 
+    objects = RegistrationDbManager()
 
 class StructureOverride(models.Model):
     regno = models.CharField(primary_key=True, max_length=10)
@@ -597,6 +639,7 @@ class StructureOverride(models.Model):
         managed = False
         db_table = 'structure_override'
 
+    objects = RegistrationDbManager()
 
 class StructureSection(models.Model):
     structure_id = models.IntegerField()
@@ -607,6 +650,7 @@ class StructureSection(models.Model):
         db_table = 'structure_section'
         unique_together = (('structure_id', 'section'),)
 
+    objects = RegistrationDbManager()
 
 class StudCurrRegStatus(models.Model):
     registration_number = models.CharField(max_length=10)
@@ -619,6 +663,7 @@ class StudCurrRegStatus(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'stud_curr_reg_status'
 
+    objects = RegistrationDbManager()
 
 class StudentData(models.Model):
     userid = models.PositiveIntegerField()
@@ -661,6 +706,7 @@ class StudentData(models.Model):
         managed = False  # Created from a view. Don't remove.
         db_table = 'student_data'
 
+    objects = RegistrationDbManager()
 
 class Temp(models.Model):
     col_1 = models.CharField(db_column='COL 1', max_length=37, blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
@@ -676,6 +722,7 @@ class Temp(models.Model):
         managed = False
         db_table = 'temp'
 
+    objects = RegistrationDbManager()
 
 class Timestamp(models.Model):
     regno = models.CharField(max_length=10)
@@ -686,6 +733,7 @@ class Timestamp(models.Model):
         managed = False
         db_table = 'timestamp'
 
+    objects = RegistrationDbManager()
 
 class TimestampRequested(models.Model):
     regno = models.CharField(max_length=10)
@@ -697,6 +745,7 @@ class TimestampRequested(models.Model):
         managed = False
         db_table = 'timestamp_requested'
 
+    objects = RegistrationDbManager()
 
 class TimestampSession10(models.Model):
     regno = models.CharField(max_length=10)
@@ -707,6 +756,7 @@ class TimestampSession10(models.Model):
         managed = False
         db_table = 'timestamp_session_10'
 
+    objects = RegistrationDbManager()
 
 class TimestampSession9(models.Model):
     regno = models.CharField(max_length=10)
@@ -716,3 +766,6 @@ class TimestampSession9(models.Model):
     class Meta:
         managed = False
         db_table = 'timestamp_session_9'
+
+    objects = RegistrationDbManager()
+
